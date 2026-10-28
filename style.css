@@ -1,0 +1,945 @@
+:root {
+    --top-strip: #fcf0c8;
+    --hero-blue: #0a609c;
+    --logo-strip: #eff8ff;
+    --review-bg: #eef8fb;
+    --table-blue: #1973b7;
+    --table-alt: #f7f7f7;
+    --text: #000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: var(--text);
+    background: #fff;
+    font-family: Georgia, "Times New Roman", serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.top-strip {
+    height: 32px;
+    background: var(--top-strip);
+    overflow: hidden;
+}
+
+.top-strip-inner {
+    width: 1120px;
+    max-width: calc(100% - 26px);
+    height: 32px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 61px;
+}
+
+.brand-wrap,
+.savings-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.brand-wrap {
+    gap: 8px;
+}
+
+.savings-wrap {
+    gap: 11px;
+}
+
+.tiny-flag {
+    width: 24px;
+    height: 14px;
+    object-fit: cover;
+}
+
+.brand-name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19px;
+    line-height: 1;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.savings-text {
+    font-size: 15px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.savings-text em {
+    font-style: italic;
+}
+
+.faces {
+    width: 119px;
+    height: 26px;
+    object-fit: contain;
+}
+
+/* HERO */
+.hero-section {
+    position: relative;
+    height: 780px;
+    overflow: hidden;
+    background-color: var(--hero-blue);
+    background-image: url("assets/banner-img.jpg");
+    background-repeat: no-repeat;
+    background-position: center 457px;
+    background-size: 720px auto;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 1056px;
+    max-width: calc(100% - 26px);
+    margin: 0 auto;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 51px;
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+}
+
+.subheading {
+    margin: 25px 0 29px;
+    color: #fff;
+    font-size: 19px;
+    line-height: 23px;
+    font-weight: 400;
+}
+
+.question-card {
+    width: 640px;
+    height: 167px;
+    max-width: calc(100% - 22px);
+    margin: 0 auto;
+    padding: 27px 19px 30px;
+    background: #fff;
+    border-radius: 9px;
+}
+
+.question-card h2 {
+    margin: 0 0 19px;
+    font-size: 26px;
+    line-height: 28px;
+    font-weight: 700;
+}
+
+.button-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.choice-btn {
+    width: 100%;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff;
+    border: 1px solid #0f75bc;
+    border-radius: 4px;
+
+    color: #000;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.choice-btn:hover {
+    background: #f4f9fd;
+}
+
+.choice-btn:focus-visible {
+    background: #f4f9fd;
+}
+
+.choice-btn.is-selected {
+    background: #35c63d;
+    border-color: #35c63d;
+    color: #fff;
+}
+
+.choice-btn.is-selected:hover {
+    background: #35c63d;
+    border-color: #35c63d;
+    color: #fff;
+}
+
+.secure-note {
+    margin: 20px 0 0;
+    color: #fff;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+}
+
+.lock-icon {
+    display: inline-block;
+    margin-right: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    vertical-align: -1px;
+}
+
+/* REVIEW LOGO STRIP */
+.review-strip {
+    height: 114px;
+    background: var(--logo-strip);
+}
+
+.review-strip-inner {
+    width: 1056px;
+    max-width: calc(100% - 20px);
+    height: 114px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+.review-logo-card {
+    position: relative;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.review-logo-card.bordered::before,
+.review-logo-card.bordered::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    width: 1px;
+    height: 64px;
+    background: rgba(0, 0, 0, 0.18);
+}
+
+.review-logo-card.bordered::before {
+    left: 0;
+}
+
+.review-logo-card.bordered::after {
+    right: 0;
+}
+
+.review-logo-card img {
+    width: auto;
+    object-fit: contain;
+    margin: 0 auto 8px;
+}
+
+.review-google img {
+    width: 110px;
+    max-height: 36px;
+}
+
+.review-consumer img {
+    width: 206px;
+    max-height: 28px;
+}
+
+.review-trustpilot img {
+    width: 135px;
+    max-height: 34px;
+}
+
+.review-logo-card p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 21px;
+    white-space: nowrap;
+}
+
+/* REAL-TIME QUOTES */
+.quotes-section {
+    background: #fff;
+    padding: 61px 0 64px;
+}
+
+.quotes-container {
+    width: 627px;
+    max-width: calc(100% - 26px);
+    margin: 0 auto;
+}
+
+.quotes-title {
+    margin: 0 0 51px;
+    text-align: center;
+    font-size: 38px;
+    line-height: 43px;
+    font-weight: 700;
+}
+
+.quotes-table-wrap {
+    width: 100%;
+    max-height: 344px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 2px solid var(--review-bg);
+    border-radius: 9px;
+    background: #fff;
+    scrollbar-width: thin;
+    scrollbar-color: #9aa8b3 #eef3f6;
+}
+
+.quotes-table-wrap::-webkit-scrollbar {
+    width: 7px;
+}
+
+.quotes-table-wrap::-webkit-scrollbar-track {
+    background: #eef3f6;
+}
+
+.quotes-table-wrap::-webkit-scrollbar-thumb {
+    background: #9aa8b3;
+    border-radius: 10px;
+}
+
+.quotes-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.quotes-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: var(--table-blue);
+    color: #fff;
+}
+
+.quotes-table th {
+    height: 54px;
+    padding: 0 8px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.quotes-table td {
+    height: 61px;
+    padding: 0 8px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.quotes-table tbody tr:nth-child(odd) {
+    background: var(--table-alt);
+}
+
+.quotes-table tbody tr:nth-child(even) {
+    background: #fff;
+}
+
+.quotes-table th:nth-child(1),
+.quotes-table td:nth-child(1) {
+    width: 32%;
+}
+
+.quotes-table th:nth-child(2),
+.quotes-table td:nth-child(2) {
+    width: 26%;
+}
+
+.quotes-table th:nth-child(3),
+.quotes-table td:nth-child(3) {
+    width: 18%;
+}
+
+.quotes-table th:nth-child(4),
+.quotes-table td:nth-child(4) {
+    width: 24%;
+}
+
+.blur-name {
+    display: inline-block;
+    min-width: 62px;
+    opacity: 0.76;
+    filter: blur(4px);
+    user-select: none;
+}
+
+.customer-reviews-section {
+    background: var(--review-bg);
+    padding: 22px 0 60px;
+}
+
+.customer-reviews-container {
+    width: 1171px;
+    max-width: calc(100% - 38px);
+    margin: 0 auto;
+}
+
+.customer-reviews-title {
+    margin: 0;
+    text-align: center;
+    font-size: 38px;
+    line-height: 43px;
+    font-weight: 700;
+}
+
+.customer-reviews-subtitle {
+    margin: 27px auto 42px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.testimonial-card {
+    height: 230px;
+    padding: 19px 24px 22px;
+    background: #fff;
+    border: 1px solid var(--table-blue);
+    border-radius: 10px;
+}
+
+.review-stars {
+    width: 80px;
+    height: auto;
+}
+
+.review-copy {
+    margin: 11px 0 22px;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.reviewer-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.reviewer-avatar {
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.reviewer-info h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.verified-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #049c42;
+    font-size: 11px;
+    line-height: 13px;
+}
+
+.verified-row img {
+    width: 12px;
+    height: 12px;
+}
+
+/* FOOTER */
+.site-footer {
+    background: #fff;
+    padding: 56px 0 58px;
+}
+
+.footer-container {
+    width: 1171px;
+    max-width: calc(100% - 38px);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.disclaimer {
+    margin: 0;
+    font-size: 10.5px;
+    line-height: 21.5px;
+}
+
+.footer-links {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 10.5px;
+    line-height: 16px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 1000px) {
+    .top-strip {
+        height: 40px;
+    }
+
+    .top-strip-inner {
+        width: calc(100% - 22px);
+        max-width: none;
+        height: 40px;
+        gap: 18px;
+        justify-content: space-between;
+    }
+
+    .tiny-flag {
+        width: 21px;
+        height: 13px;
+    }
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+    .savings-text {
+        font-size: 12px;
+    }
+
+    .faces {
+        width: 82px;
+        height: 24px;
+    }
+
+    .hero-section {
+        height: 650px;
+        background-position: center bottom;
+        background-size: 600px auto;
+    }
+
+    .hero-content {
+        padding-top: 42px;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+        line-height: 44px;
+    }
+
+    .subheading {
+        margin: 24px 0 26px;
+        font-size: 17px;
+        line-height: 22px;
+    }
+
+    .question-card {
+        width: 600px;
+        height: 160px;
+        padding: 23px 19px 26px;
+    }
+
+    .question-card h2 {
+        margin-bottom: 18px;
+        font-size: 22px;
+        line-height: 28px;
+    }
+
+    .choice-btn {
+        height: 60px;
+        font-size: 19px;
+    }
+
+    .secure-note {
+        margin-top: 22px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .review-strip {
+        height: 112px;
+    }
+
+    .review-strip-inner {
+        height: 112px;
+        width: 900px;
+    }
+
+    .review-logo-card {
+        height: 84px;
+    }
+
+    .review-logo-card.bordered::before,
+    .review-logo-card.bordered::after {
+        top: 8px;
+        height: 68px;
+    }
+
+    .review-google img {
+        width: 108px;
+    }
+
+    .review-consumer img {
+        width: 190px;
+    }
+
+    .review-trustpilot img {
+        width: 132px;
+    }
+
+    .review-logo-card p {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .quotes-section {
+        padding: 58px 0 62px;
+    }
+
+    .quotes-container {
+        width: 680px;
+    }
+
+    .quotes-title {
+        margin-bottom: 48px;
+        font-size: 40px;
+        line-height: 44px;
+    }
+
+    .quotes-table th {
+        font-size: 16px;
+    }
+
+    .quotes-table td {
+        font-size: 15px;
+    }
+
+    .quotes-table-wrap {
+        max-height: 355px;
+    }
+
+    .customer-reviews-section {
+        padding: 42px 0 50px;
+    }
+
+    .customer-reviews-container {
+        width: 680px;
+        max-width: calc(100% - 28px);
+    }
+
+    .customer-reviews-title {
+        font-size: 40px;
+        line-height: 44px;
+    }
+
+    .customer-reviews-subtitle {
+        margin: 24px auto 34px;
+        font-size: 17px;
+        line-height: 25px;
+    }
+
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .testimonial-card {
+        height: auto;
+        min-height: 250px;
+    }
+
+    .site-footer {
+        padding: 48px 0 54px;
+    }
+
+    .footer-container {
+        max-width: calc(100% - 32px);
+    }
+
+    .disclaimer {
+        font-size: 12px;
+        line-height: 22px;
+    }
+
+    .footer-links {
+        font-size: 12px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .top-strip {
+        height: auto;
+        min-height: 48px;
+    }
+
+    .top-strip-inner {
+        height: auto;
+        min-height: 48px;
+        padding: 6px 0;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .brand-wrap {
+        gap: 6px;
+    }
+
+    .tiny-flag {
+        width: 18px;
+        height: 12px;
+    }
+
+    .brand-name {
+        font-size: 14px;
+    }
+
+    .savings-wrap {
+        gap: 6px;
+    }
+
+    .savings-text {
+        font-size: 10px;
+    }
+
+    .faces {
+        width: 68px;
+        height: 21px;
+    }
+
+    .hero-section {
+        height: 570px;
+        background-size: 440px auto;
+        background-position: center bottom;
+    }
+
+    .hero-content {
+        width: calc(100% - 22px);
+        max-width: none;
+        padding-top: 31px;
+    }
+
+    .hero-content h1 {
+        max-width: 360px;
+        font-size: 31px;
+        line-height: 35px;
+    }
+
+    .subheading {
+        margin: 19px 0 20px;
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    .question-card {
+        width: 100%;
+        max-width: 390px;
+        height: auto;
+        padding: 20px 14px 18px;
+        border-radius: 8px;
+    }
+
+    .question-card h2 {
+        margin-bottom: 15px;
+        font-size: 19px;
+        line-height: 24px;
+    }
+
+    .button-row {
+        gap: 10px;
+    }
+
+    .choice-btn {
+        height: 50px;
+        font-size: 17px;
+    }
+
+    .secure-note {
+        margin-top: 17px;
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    .lock-icon {
+        font-size: 11px;
+    }
+
+    .review-strip {
+        height: auto;
+        padding: 18px 0;
+    }
+
+    .review-strip-inner {
+        width: calc(100% - 18px);
+        max-width: none;
+        height: auto;
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .review-logo-card {
+        height: auto;
+        min-height: 58px;
+    }
+
+    .review-logo-card.bordered::before,
+    .review-logo-card.bordered::after {
+        display: none;
+    }
+
+    .review-google img {
+        width: 102px;
+    }
+
+    .review-consumer img {
+        width: 178px;
+    }
+
+    .review-trustpilot img {
+        width: 122px;
+    }
+
+    .review-logo-card p {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .quotes-section {
+        padding: 42px 0 48px;
+    }
+
+    .quotes-container {
+        width: calc(100% - 20px);
+        max-width: none;
+    }
+
+    .quotes-title {
+        margin-bottom: 28px;
+        font-size: 31px;
+        line-height: 36px;
+    }
+
+    .quotes-table-wrap {
+        max-height: 330px;
+        border-radius: 8px;
+    }
+
+    .quotes-table th {
+        height: 50px;
+        font-size: 13px;
+        padding: 0 5px;
+    }
+
+    .quotes-table td {
+        height: 56px;
+        font-size: 12px;
+        padding: 0 5px;
+    }
+
+    .blur-name {
+        min-width: 50px;
+    }
+
+    .customer-reviews-section {
+        padding: 34px 0 40px;
+    }
+
+    .customer-reviews-container {
+        width: calc(100% - 22px);
+        max-width: none;
+    }
+
+    .customer-reviews-title {
+        font-size: 31px;
+        line-height: 36px;
+    }
+
+    .customer-reviews-subtitle {
+        margin: 18px auto 28px;
+        font-size: 14px;
+        line-height: 21px;
+    }
+
+    .testimonial-card {
+        min-height: 220px;
+        padding: 18px;
+    }
+
+    .review-copy {
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    .reviewer-avatar {
+        width: 54px;
+        height: 54px;
+        flex-basis: 54px;
+    }
+
+    .site-footer {
+        padding: 36px 0 40px;
+    }
+
+    .footer-container {
+        width: calc(100% - 24px);
+        max-width: none;
+    }
+
+    .disclaimer {
+        font-size: 10px;
+        line-height: 18px;
+    }
+
+    .footer-links {
+        margin-top: 24px;
+        font-size: 10px;
+        line-height: 16px;
+    }
+}
