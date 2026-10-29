@@ -8,26 +8,22 @@ Serve locally with `python3 -m http.server 8080` and open `http://localhost:8080
 
 ## Meta measurement
 
-**Current setup:** Pixel `1492655519595047` is enabled for PageView only, after consent. CTA clicks send no Meta events.
-
-- Pixel ID: `1492655519595047` in `config.js`.
-- No Meta script or events before explicit acceptance of optional advertising measurement.
-- Acceptance sends one `PageView` per page load. Neither YES nor NO sends a Meta event.
-- No insurance answer, email, phone number, or custom user data is included in the event. Automatic event configuration is disabled in code; also review automatic events and advanced matching settings in Events Manager before launch.
-- Declining or withdrawing consent stops subsequent events from this integration; quote navigation still works. Browser Global Privacy Control and Do Not Track disable measurement. Withdrawal does not delete data Meta already received.
-- Preferences are stored in local storage for up to 180 days. Withdrawal revokes Pixel consent and attempts to clear accessible `_fbp` and `_fbc` cookies.
-- Measurement only runs on URLs/referrers without fragments and with a restricted set of campaign parameters (`fbclid`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `campaign_id`, `adset_id`, `ad_id`) containing 1–500 ASCII letters, digits, `_`, `.`, `~`, or `-`. Other parameters disable measurement. Never put personal information in campaign identifiers or URL paths.
-- Ad blockers, browser controls, declined consent, script loading delays, and network failures can prevent delivery. Native link navigation does not guarantee that optional Meta events finish sending before departure. There is no server-side Conversions API integration.
+- Pixel `1492655519595047` is enabled in `config.js` and sends one PageView automatically on each HTTP(S) page load where `main.js` is included. The root homepage has no scripts.
+- There is no consent popup, preference panel, or consent-grant event. CTA clicks do not send Lead or other Meta events. Automatic event configuration is disabled.
+- Global Privacy Control, Do Not Track, unsupported URL/referrer parameters, ad blockers, and network restrictions can prevent loading. Known ClickFlare campaign parameters are allowed. Never put personal information in URLs.
+- The site does not read or write the former consent preference. Existing stored choices do not gate initialization.
+- This configuration does not guarantee legal/platform compliance; consent obligations depend on the audience and applicable requirements.
+- The YES/NO links continue using ClickFlare independently. They require a valid campaign visit/session.
 
 ## Remaining launch checks
 
-The `quoteUrl` is `https://globalvisitlog.com/cf/click` for both buttons. The owner-supplied tag is in `clickflare.js` and loads on the landing page. Markdown escapes were removed from the supplied JavaScript. The tag reads `cftmid` and `cpid` from the landing URL, or the campaign from `cf_cpid`. Without these values it retains the supplied `__CONTAINER_ID__` and `__CAMPAIGN_ID__` placeholders; supply the real identifiers through your campaign URL or replace the placeholders for a working campaign. External tag behavior and attribution must be verified in ClickFlare. This tag is independent of the disabled Meta integration.
+The `quoteUrl` is `https://globalvisitlog.com/cf/click` for both buttons. The owner-supplied tag is in `clickflare.js` and loads on the landing page. Markdown escapes were removed from the supplied JavaScript. The tag reads `cftmid` and `cpid` from the landing URL, or the campaign from `cf_cpid`. Without these values it retains the supplied `__CONTAINER_ID__` and `__CAMPAIGN_ID__` placeholders; supply the real identifiers through your campaign URL or replace the placeholders for a working campaign. External tag behavior and attribution must be verified in ClickFlare. This tag is independent of the automatic Meta PageView integration.
 
 No legal operator name has been provided. The contact email is published, but this is not a legal or platform compliance certification. Review the operator disclosures and obligations relevant to your business and audience. No approval or absence of future flags is guaranteed.
 
 At the owner’s request, the original flag, savings claims, customer count, review logos, static “Real-Time Quotes” table, and supplied testimonials have been restored on `/getoffer/`. These figures and testimonials have not been independently verified. The table is static, and the Terms disclose that it is not a live insurer feed. Substantiate the claims and review permissions before advertising.
 
-After hosting on HTTPS, verify the domain and Pixel in your Meta account as applicable. Use Events Manager Test Events with a browser that permits measurement: accept measurement, confirm PageView, click YES or NO, and confirm that no Lead event is sent. Test rejection separately: no Pixel should load, and the CTA should still work. Review any extra events configured remotely in your account. Live Meta receipt has not been verified from this workspace.
+After hosting on HTTPS, verify the domain and Pixel in your Meta account as applicable. Use Events Manager Test Events with a browser that permits measurement: confirm automatic PageView, click YES or NO, and confirm that no Lead event is sent. Test browser privacy signals separately: no Pixel should load, and the CTA should still work. Review any extra events configured remotely in your account. Live Meta receipt has not been verified from this workspace.
 
 ## Automated checks
 
@@ -42,3 +38,7 @@ Tests cover both ClickFlare-managed CTA links, simulated tag failure fallback, c
 ## ClickFlare CTA integration
 
 YES and NO are real anchors, styled as buttons. `main.js` initializes their href from `config.js` before the deferred ClickFlare tag rewrites links. The click handler leaves native navigation intact, so the vendor’s rewritten handler runs. On tag load failure, the supplied vendor script restores the direct click URL. That fallback still requires a valid ClickFlare visitor/campaign session; it cannot fix missing campaign IDs or blocked cookies.
+
+### Verified redirect campaign
+
+Campaign ID: `6ae32805a09e8bf230a30fb5`. Entry URL: `https://globalvisitlog.com/cf/r/6ae32805a09e8bf230a30fb5`. In a fresh browser, enter through this URL before using the CTA. The campaign supplies `cpid`, `cep`, and `lptoken` to the landing page. The Meta URL guard accepts these identifiers in their expected formats. Direct entry to the bare landing page has no campaign session and can return “Could not find cookie for cta click.” Both CTA answers use the same offer URL; there is no separate answer attribution configured.
