@@ -129,13 +129,7 @@
       // Leave the default anchor action intact. ClickFlare rewrites href to its
       // own handler and restores the direct URL if its network tag fails.
       // Do not replace that action with a raw location.assign redirect.
-      if (started && canTrack() && window.fbq) {
-        try {
-          // This event represents CTA interest, not a completed application.
-          // Do not send the insurance answer, contact details, or custom user data.
-          window.fbq("trackSingle", pixelId, "Lead");
-        } catch (_) { /* Analytics must never block the quote journey. */ }
-      }
+      // CTA clicks do not send Meta events; only PageView is configured.
     });
   });
   window.addEventListener("pageshow", function () {

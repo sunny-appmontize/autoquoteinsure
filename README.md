@@ -8,11 +8,11 @@ Serve locally with `python3 -m http.server 8080` and open `http://localhost:8080
 
 ## Meta measurement
 
-**Currently disabled:** `metaTrackingEnabled: false` prevents the Meta script, PageView, and Lead events, including for visitors who previously accepted measurement. The Pixel ID is retained for future use. The behavior below applies only if explicitly re-enabled.
+**Current setup:** Pixel `1492655519595047` is enabled for PageView only, after consent. CTA clicks send no Meta events.
 
-- Pixel ID: `610135848470978` in `config.js`.
+- Pixel ID: `1492655519595047` in `config.js`.
 - No Meta script or events before explicit acceptance of optional advertising measurement.
-- Acceptance sends one `PageView` per page load. Either YES or NO sends one `Lead` per navigation attempt, then follows the ClickFlare-managed anchor. This Lead represents CTA interest, **not** a completed application or qualified lead.
+- Acceptance sends one `PageView` per page load. Neither YES nor NO sends a Meta event.
 - No insurance answer, email, phone number, or custom user data is included in the event. Automatic event configuration is disabled in code; also review automatic events and advanced matching settings in Events Manager before launch.
 - Declining or withdrawing consent stops subsequent events from this integration; quote navigation still works. Browser Global Privacy Control and Do Not Track disable measurement. Withdrawal does not delete data Meta already received.
 - Preferences are stored in local storage for up to 180 days. Withdrawal revokes Pixel consent and attempts to clear accessible `_fbp` and `_fbc` cookies.
@@ -21,13 +21,13 @@ Serve locally with `python3 -m http.server 8080` and open `http://localhost:8080
 
 ## Remaining launch checks
 
-The `quoteUrl` is `https://globalvisitlog.com/cf/click/1` for both buttons. The owner-supplied tag is in `clickflare.js` and loads on the landing page. Markdown escapes were removed from the supplied JavaScript. The tag reads `cftmid` and `cpid` from the landing URL, or the campaign from `cf_cpid`. Without these values it retains the supplied `__CONTAINER_ID__` and `__CAMPAIGN_ID__` placeholders; supply the real identifiers through your campaign URL or replace the placeholders for a working campaign. External tag behavior and attribution must be verified in ClickFlare. This tag is independent of the disabled Meta integration.
+The `quoteUrl` is `https://globalvisitlog.com/cf/click` for both buttons. The owner-supplied tag is in `clickflare.js` and loads on the landing page. Markdown escapes were removed from the supplied JavaScript. The tag reads `cftmid` and `cpid` from the landing URL, or the campaign from `cf_cpid`. Without these values it retains the supplied `__CONTAINER_ID__` and `__CAMPAIGN_ID__` placeholders; supply the real identifiers through your campaign URL or replace the placeholders for a working campaign. External tag behavior and attribution must be verified in ClickFlare. This tag is independent of the disabled Meta integration.
 
 No legal operator name has been provided. The contact email is published, but this is not a legal or platform compliance certification. Review the operator disclosures and obligations relevant to your business and audience. No approval or absence of future flags is guaranteed.
 
 At the owner’s request, the original flag, savings claims, customer count, review logos, static “Real-Time Quotes” table, and supplied testimonials have been restored on `/getoffer/`. These figures and testimonials have not been independently verified. The table is static, and the Terms disclose that it is not a live insurer feed. Substantiate the claims and review permissions before advertising.
 
-After hosting on HTTPS, verify the domain and Pixel in your Meta account as applicable. Use Events Manager Test Events with a browser that permits measurement: accept measurement, confirm PageView, click YES or NO, and confirm Lead on Pixel `610135848470978`. Test rejection separately: no Pixel should load, and the CTA should still work. Review any extra events configured remotely in your account. Live Meta receipt has not been verified from this workspace.
+After hosting on HTTPS, verify the domain and Pixel in your Meta account as applicable. Use Events Manager Test Events with a browser that permits measurement: accept measurement, confirm PageView, click YES or NO, and confirm that no Lead event is sent. Test rejection separately: no Pixel should load, and the CTA should still work. Review any extra events configured remotely in your account. Live Meta receipt has not been verified from this workspace.
 
 ## Automated checks
 
