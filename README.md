@@ -12,12 +12,12 @@ Serve locally with `python3 -m http.server 8080` and open `http://localhost:8080
 
 - Pixel ID: `610135848470978` in `config.js`.
 - No Meta script or events before explicit acceptance of optional advertising measurement.
-- Acceptance sends one `PageView` per page load. Either YES or NO sends one `Lead` per navigation attempt, then redirects after 500 ms. This Lead represents CTA interest, **not** a completed application or qualified lead.
+- Acceptance sends one `PageView` per page load. Either YES or NO sends one `Lead` per navigation attempt, then follows the ClickFlare-managed anchor. This Lead represents CTA interest, **not** a completed application or qualified lead.
 - No insurance answer, email, phone number, or custom user data is included in the event. Automatic event configuration is disabled in code; also review automatic events and advanced matching settings in Events Manager before launch.
 - Declining or withdrawing consent stops subsequent events from this integration; quote navigation still works. Browser Global Privacy Control and Do Not Track disable measurement. Withdrawal does not delete data Meta already received.
 - Preferences are stored in local storage for up to 180 days. Withdrawal revokes Pixel consent and attempts to clear accessible `_fbp` and `_fbc` cookies.
 - Measurement only runs on URLs/referrers without fragments and with a restricted set of campaign parameters (`fbclid`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `campaign_id`, `adset_id`, `ad_id`) containing 1–500 ASCII letters, digits, `_`, `.`, `~`, or `-`. Other parameters disable measurement. Never put personal information in campaign identifiers or URL paths.
-- Ad blockers, browser controls, declined consent, script loading delays, and network failures can prevent delivery. A timeout gives events time to send but cannot guarantee receipt. There is no server-side Conversions API integration.
+- Ad blockers, browser controls, declined consent, script loading delays, and network failures can prevent delivery. Native link navigation does not guarantee that optional Meta events finish sending before departure. There is no server-side Conversions API integration.
 
 ## Remaining launch checks
 
@@ -37,4 +37,8 @@ After hosting on HTTPS, verify the domain and Pixel in your Meta account as appl
 PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chrome node tests/tracking.cjs
 ```
 
-Tests cover consent, both CTAs, duplicate prevention, rejection, GPC, withdrawal, blocked analytics, redirects, URL safeguards, contact links, and responsive layouts.
+Tests cover both ClickFlare-managed CTA links, simulated tag failure fallback, campaign parameters, duplicate prevention, back-navigation reset, disabled Meta despite saved consent, responsive layouts, and the root page. The external tag is simulated; these tests do not verify a live ClickFlare campaign.
+
+## ClickFlare CTA integration
+
+YES and NO are real anchors, styled as buttons. `main.js` initializes their href from `config.js` before the deferred ClickFlare tag rewrites links. The click handler leaves native navigation intact, so the vendor’s rewritten handler runs. On tag load failure, the supplied vendor script restores the direct click URL. That fallback still requires a valid ClickFlare visitor/campaign session; it cannot fix missing campaign IDs or blocked cookies.

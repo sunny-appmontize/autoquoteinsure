@@ -115,16 +115,20 @@
   startPixel();
 
   buttons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      if (navigating) return;
+    // Configure real anchors before the deferred ClickFlare tag rewrites them.
+    if (config.quoteUrl) button.setAttribute("href", config.quoteUrl);
+    button.addEventListener("click", function (event) {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (navigating) { event.preventDefault(); return; }
       navigating = true;
       buttons.forEach(function (item) {
-        item.disabled = true;
+        item.setAttribute("aria-disabled", "true");
         item.classList.remove("is-selected");
       });
       button.classList.add("is-selected");
-      // Always schedule navigation, even if analytics fails or is blocked.
-      setTimeout(function () { window.location.assign(config.quoteUrl); }, 500);
+      // Leave the default anchor action intact. ClickFlare rewrites href to its
+      // own handler and restores the direct URL if its network tag fails.
+      // Do not replace that action with a raw location.assign redirect.
       if (started && canTrack() && window.fbq) {
         try {
           // This event represents CTA interest, not a completed application.
@@ -137,7 +141,7 @@
   window.addEventListener("pageshow", function () {
     navigating = false;
     buttons.forEach(function (button) {
-      button.disabled = false;
+      button.removeAttribute("aria-disabled");
       button.classList.remove("is-selected");
     });
   });
