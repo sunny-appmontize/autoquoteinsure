@@ -943,6 +943,3 @@ a {
         line-height: 16px;
     }
 }
-/* The quote table contains only names and rates. */
-.quotes-table th:nth-child(n),
-.quotes-table td:nth-child(n) { width: 50%; }

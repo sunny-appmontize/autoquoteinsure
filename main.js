@@ -92,7 +92,7 @@
   }
 
   if (config.metaTrackingEnabled !== true && message) {
-    message.textContent = "Advertising measurement is currently disabled. No Meta Pixel, PageView, or Lead events are sent by this site.";
+    message.textContent = "Meta measurement is currently disabled. No Meta Pixel, PageView, or Lead events are sent by this integration. The landing page uses separate ClickFlare referral tracking; see the Privacy Policy.";
     accept.hidden = true;
     reject.textContent = "Close";
   }

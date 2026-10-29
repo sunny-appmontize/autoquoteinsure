@@ -7,7 +7,8 @@ const http = require('node:http');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const root = path.resolve(__dirname, '..');
 const server = http.createServer((req, res) => {
-  const file = path.join(root, new URL(req.url, 'http://localhost').pathname.replace(/^\//, '') || 'index.html');
+  let file = path.join(root, new URL(req.url, 'http://localhost').pathname.replace(/^\//, '') || 'index.html');
+  if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');
   if (!file.startsWith(root + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) { res.writeHead(404).end(); return; }
   res.setHeader('Content-Type', ({'.js':'application/javascript','.css':'text/css','.html':'text/html','.jpg':'image/jpeg','.png':'image/png'})[path.extname(file)] || 'application/octet-stream');
   res.end(fs.readFileSync(file));
@@ -22,6 +23,7 @@ const server = http.createServer((req, res) => {
       if (gpc) await context.addInitScript(() => Object.defineProperty(navigator, 'globalPrivacyControl', {value:true}));
       if (priorConsent) await context.addInitScript(() => localStorage.setItem('autoquote-ad-consent-v1', JSON.stringify({value:'accepted',at:Date.now()})));
       if (enabled) await context.route('**/config.js', route => route.fulfill({contentType:'application/javascript',body:fs.readFileSync(path.join(root,'config.js'),'utf8').replace('metaTrackingEnabled: false','metaTrackingEnabled: true')}));
+      await context.route('https://globalvisitlog.com/**', route => route.abort());
       let requests = 0;
       await context.route('https://connect.facebook.net/**', route => {
         requests++;
@@ -29,19 +31,19 @@ const server = http.createServer((req, res) => {
       });
       await context.route('https://www.facebook.com/**', route => route.abort());
       const page = await context.newPage();
-      await page.goto(base + '/index.html' + suffix);
+      await page.goto(base + '/getoffer/' + suffix);
       await page.evaluate(() => { AUTOQUOTE_CONFIG.quoteUrl = '/terms.html'; });
       return {context, page, requests:()=>requests};
     }
     for (const priorConsent of [false,true]) {
       const t = await setup({enabled:false,priorConsent});
-      for (const file of ['index.html','privacy-policy.html','terms.html']) {
+      for (const file of ['getoffer/','privacy-policy.html','terms.html']) {
         await t.page.goto(base+'/'+file);
         assert.equal(await t.page.evaluate(()=>typeof window.fbq),'undefined');
         assert(await t.page.locator('#privacy-banner').isHidden());
       }
       for (const label of ['YES','NO']) {
-        await t.page.goto(base+'/index.html');
+        await t.page.goto(base+'/getoffer/');
         await t.page.evaluate(()=>{AUTOQUOTE_CONFIG.quoteUrl='/terms.html';});
         await t.page.getByRole('button',{name:label,exact:true}).click();
         assert.equal(await t.page.evaluate(()=>typeof window.fbq),'undefined');
@@ -99,7 +101,7 @@ const server = http.createServer((req, res) => {
     const t=await setup();
     for(const width of [1440,390]) {
       await t.page.setViewportSize({width,height:900});
-      for(const file of ['index.html','terms.html','privacy-policy.html']) {
+      for(const file of ['getoffer/','terms.html','privacy-policy.html']) {
         await t.page.goto(base+'/'+file);
         assert(await t.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
         assert(await t.page.getByRole('link',{name:'contact@saveautoinfo.com',exact:true}).first().isVisible());

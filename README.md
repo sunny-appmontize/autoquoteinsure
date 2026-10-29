@@ -2,7 +2,9 @@
 
 Responsive static landing page with linked privacy/terms pages and `contact@saveautoinfo.com` as its support and privacy contact.
 
-Serve locally with `python3 -m http.server 8080`. Pixel measurement requires HTTP(S); opening a file directly does not activate it.
+The root `/` shows only “Happy World!” with no scripts or tracking. The insurance landing page is at `/getoffer/`. Policy pages remain at `/privacy-policy.html` and `/terms.html`, with return links to `/getoffer/`.
+
+Serve locally with `python3 -m http.server 8080` and open `http://localhost:8080/getoffer/`. Pixel measurement requires HTTP(S); opening a file directly does not activate it.
 
 ## Meta measurement
 
@@ -19,11 +21,11 @@ Serve locally with `python3 -m http.server 8080`. Pixel measurement requires HTT
 
 ## Remaining launch checks
 
-The `quoteUrl` still points to the supplied reference's `https://trk.trackflowlink.com/cf/click`. Replace it with your own verified referral URL and check the full destination flow before paid traffic. Its ownership and campaign configuration have not been verified.
+The `quoteUrl` is `https://globalvisitlog.com/cf/click/1` for both buttons. The owner-supplied tag is in `clickflare.js` and loads on the landing page. Markdown escapes were removed from the supplied JavaScript. The tag reads `cftmid` and `cpid` from the landing URL, or the campaign from `cf_cpid`. Without these values it retains the supplied `__CONTAINER_ID__` and `__CAMPAIGN_ID__` placeholders; supply the real identifiers through your campaign URL or replace the placeholders for a working campaign. External tag behavior and attribution must be verified in ClickFlare. This tag is independent of the disabled Meta integration.
 
 No legal operator name has been provided. The contact email is published, but this is not a legal or platform compliance certification. Review the operator disclosures and obligations relevant to your business and audience. No approval or absence of future flags is guaranteed.
 
-Unverified savings amounts, customer counts, testimonials, static quotes labeled as real time, and absolute security claims were removed. Add factual claims only when you can substantiate them.
+At the owner’s request, the original flag, savings claims, customer count, review logos, static “Real-Time Quotes” table, and supplied testimonials have been restored on `/getoffer/`. These figures and testimonials have not been independently verified. The table is static, and the Terms disclose that it is not a live insurer feed. Substantiate the claims and review permissions before advertising.
 
 After hosting on HTTPS, verify the domain and Pixel in your Meta account as applicable. Use Events Manager Test Events with a browser that permits measurement: accept measurement, confirm PageView, click YES or NO, and confirm Lead on Pixel `610135848470978`. Test rejection separately: no Pixel should load, and the CTA should still work. Review any extra events configured remotely in your account. Live Meta receipt has not been verified from this workspace.
 
